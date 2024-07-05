@@ -137,7 +137,8 @@ func (l *listener) Close() error {
 	l.server.Close()
 	err := l.nl.Close()
 	<-l.closed
-	if strings.Contains(err.Error(), "use of closed network connection") {
+	fmt.Printf("Error is: %v\n", err)
+	if err != nil && strings.Contains(err.Error(), "use of closed network connection") {
 		return transport.ErrListenerClosed
 	}
 	return err
